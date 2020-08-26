@@ -1,0 +1,45 @@
+﻿@model List<BertoniWeb2.Models.Image>
+
+@{
+    ViewBag.Title = "Album";
+}
+
+    <div class="jumbotron">
+        <h1>ÁLBUM</h1>
+        <p class="lead">@ViewBag.Album</p>
+    </div>
+    <div class="row">
+        <ul>
+            @foreach (BertoniWeb2.Models.Image image in Model.OrderBy(x => x.Id))
+            {
+                <li><img src="@image.ThumbnailUrl" /><br />@image.Title<br /><a id="@image.Id" href="#" class="comment">Ver Comentarios</a><br /><br /></li>
+            }
+        </ul>
+    </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".comment").on('click', function (e) {
+            e.preventDefault();
+
+            let etiqueta = $(this);
+            let id = etiqueta[0].id;
+            let lista = etiqueta.closest('li');
+
+            $.ajax({
+                url: 'https://jsonplaceholder.typicode.com/comments?postId=' + id,
+                dataType: "json",
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    let cadena = "";
+                    $.each(data, function (key, value) {
+                        cadena = cadena + "<br />Nombre: " + value.name + "<br />Email: " + value.email + "<br />Comentario: " + value.body + "<br />";
+                    });
+                    cadena = cadena + "<br /><br />";
+                    lista.append(cadena);
+                }
+            });
+        });
+    });
+</script>

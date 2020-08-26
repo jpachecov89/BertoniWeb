@@ -1,0 +1,19 @@
+﻿@model List<BertoniWeb2.Models.Comment>
+
+@{
+    ViewBag.Title = "Comment";
+}
+
+<div class="jumbotron">
+    <h1>COMENTARIOS</h1>
+    <p class="lead">Nombre Imagen</p>
+    <p><img src="" /></p>
+</div>
+<div class="row">
+    <ul>
+        @foreach (BertoniWeb2.Models.Comment comment in Model.OrderBy(x => x.Email))
+        {
+            <li><img src="@image.ThumbnailUrl" /><br />@image.Title<br /><a href="@Url.Action("Home", "Index")">Ver Comentarios</a><br /><br /></li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,19 @@
+﻿@model List<BertoniWeb2.Models.Album>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="jumbotron">
+        <h1>LISTA DE ÁLBUMES</h1>
+        <p class="lead">Web creada para listar los últimos éxitos de Bertoni Music</p>
+    </div>
+
+<div class="row">
+    <ul>
+        @foreach (BertoniWeb2.Models.Album album in Model.OrderBy(x => x.Id))
+        {
+            <li>@album.Title <a href="@Url.Action("Album", "Home", new { id = album.Id, title = album.Title })">Visualizar Álbum</a></li>
+        }
+    </ul>
+</div>
